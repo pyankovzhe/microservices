@@ -13,9 +13,9 @@ eval $(docker-machine env docker-host)
 
 ```sh
 docker pull mongo:latest
-docker build -t pyankov/post:1.0 ./post-py
-docker build -t pyankov/comment:1.0 ./comment
-docker build -t pyankov/ui:1.0 ./ui
+docker build -t post:1.0 ./post-py
+docker build -t comment:1.0 ./comment
+docker build -t ui:1.0 ./ui
 docker network create reddit
 docker volume create reddit_db
 ```
@@ -24,10 +24,16 @@ docker volume create reddit_db
 
 ```sh
 docker run -d --network=reddit --network-alias=post_db --network-alias=comment_db -v reddit_db:/data/db mongo:latest
-docker run -d --network=reddit --network-alias=post pyankov/post:1.0
-docker run -d --network=reddit --network-alias=comment pyankov/comment:1.0
-docker run -d --network=reddit -p 9292:9292 pyankov/ui:1.0
+docker run -d --network=reddit --network-alias=post post:1.0
+docker run -d --network=reddit --network-alias=comment comment:1.0
+docker run -d --network=reddit -p 9292:9292 ui:1.0
 ```
+
+http://host:9292
+
 ---
 
-Check: http://host:9292
+### Mount work dir:
+```sh
+docker run --rm --mount type=bind,source="$(pwd)"/comment,destination=/app comment:1.0 bundle install
+```

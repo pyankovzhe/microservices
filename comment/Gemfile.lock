@@ -5,15 +5,15 @@ GEM
     bson_ext (1.5.1)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
-    mustermann (1.0.0)
+    mustermann (1.0.3)
     puma (3.10.0)
-    rack (2.0.3)
-    rack-protection (2.0.0)
+    rack (2.0.5)
+    rack-protection (2.0.4)
       rack
-    sinatra (2.0.0)
+    sinatra (2.0.4)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.0)
+      rack-protection (= 2.0.4)
       tilt (~> 2.0)
     tilt (2.0.8)
 
@@ -24,7 +24,7 @@ DEPENDENCIES
   bson_ext
   mongo
   puma
-  sinatra
+  sinatra (~> 2.0.2)
 
 BUNDLED WITH
-   1.15.3
+   1.16.6
