@@ -1,14 +1,27 @@
-FROM ruby:2.2
-RUN apt-get update -qq && apt-get install -y build-essential
+# 1. Сборка
+FROM ruby:2.3-alpine3.7 AS builder
+RUN apk update && apk --update add --virtual .build-dependencies\
+  build-base \
+  gcc \
+  automake \
+  ruby-dev \
+  libc-dev
 
-ENV APP_HOME /app
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-ADD Gemfile* $APP_HOME/
+WORKDIR /app
+
+# 2. Разработка
+FROM builder AS development
+COPY Gemfile* /app/
 RUN bundle install
-ADD . $APP_HOME
-ENV POST_SERVICE_HOST post
-ENV POST_SERVICE_PORT 5000
-ENV COMMENT_SERVICE_HOST comment
-ENV COMMENT_SERVICE_PORT 9292
+COPY . /app
+
+# 3. Релиз
+FROM development AS release
+RUN apk del .build-dependencies
+
+ENV POST_SERVICE_HOST=post
+ENV POST_SERVICE_PORT=5000
+ENV COMMENT_SERVICE_HOST=comment
+ENV COMMENT_SERVICE_PORT=9292
+
 CMD ["puma"]
