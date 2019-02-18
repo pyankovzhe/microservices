@@ -6,10 +6,11 @@ require 'uri'
 require 'rest-client'
 
 
-post_service_host = ENV['POST_SERVICE_HOST'] || '127.0.0.1'
-post_service_port = ENV['POST_SERVICE_PORT'] || '4567'
-comment_service_host = ENV['COMMENT_SERVICE_HOST'] || '127.0.0.1'
-comment_service_port = ENV['COMMENT_SERVICE_PORT'] || '4567'
+post_service_host = ENV.fetch("POST_SERVICE_HOST") { 'post' }
+post_service_port = ENV.fetch("POST_SERVICE_PORT") { 4567 }
+comment_service_host = ENV.fetch("COMMENT_SERVICE_HOST") { 'comment' }
+comment_service_port = ENV.fetch("COMMENT_SERVICE_PORT") { 4567 }
+
 
 configure do
   enable :sessions

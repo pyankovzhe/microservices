@@ -5,9 +5,9 @@ from bson.json_util import dumps
 import os
 
 
-mongo_host = os.getenv('POST_DATABASE_HOST', '127.0.0.1')
+mongo_host = os.getenv('POST_DATABASE_HOST', 'mongo_db')
 mongo_port = os.getenv('POST_DATABASE_PORT', '27017')
-mongo_database = os.getenv('POST_DATABASE', 'test')
+mongo_database = os.getenv('POST_DATABASE', 'posts')
 
 client = MongoClient(mongo_host, int(mongo_port)).user_posts
 mongo_db = client.posts

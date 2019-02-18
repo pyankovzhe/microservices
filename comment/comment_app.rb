@@ -4,9 +4,10 @@ require 'uri'
 require 'mongo'
 require './helpers'
 
-mongo_host = ENV['COMMENT_DATABASE_HOST'] || '127.0.0.1'
-mongo_port = ENV['COMMENT_DATABASE_PORT'] || '27017'
-mongo_database = ENV['COMMENT_DATABASE'] || 'test'
+mongo_host = ENV.fetch('COMMENT_DATABASE_HOST')  { 'comment_db' }
+mongo_port = ENV.fetch('COMMENT_DATABASE_PORT') { 27017 }
+mongo_database = ENV.fetch('COMMENT_DATABASE')  { 'comments' }
+
 
 configure do
   db = Mongo::Client.new(["#{mongo_host}:#{mongo_port}"], database: mongo_database, heartbeat_frequency: 2)
