@@ -1,0 +1,4 @@
+.env.local
+comment/.env.local
+post-py/.env.local
+ui/.env.local

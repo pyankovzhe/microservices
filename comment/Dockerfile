@@ -20,7 +20,4 @@ COPY . /app
 FROM development AS release
 RUN apk del .build-dependencies
 
-ENV COMMENT_DATABASE_HOST=comment_db
-ENV COMMENT_DATABASE=comments
-
 CMD ["puma"]

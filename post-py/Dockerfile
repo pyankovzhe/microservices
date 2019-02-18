@@ -1,11 +1,8 @@
 FROM python:3.6.0-alpine
 
-RUN pip install flask pymongo
+RUN pip install flask pymongo python-dotenv
 
 WORKDIR /app
 COPY . /app
-
-ENV POST_DATABASE_HOST=post_db
-ENV POST_DATABASE=posts
 
 ENTRYPOINT ["python3", "post_app.py"]

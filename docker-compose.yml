@@ -1,0 +1,46 @@
+version: '3.3'
+services:
+  mongo_db:
+    image: mongo:3.2
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - backend
+
+  ui:
+    build: ./ui
+    image: ui:1.0
+    env_file:
+      - ui/.env
+      - ui/.env.local
+    ports:
+      - 9292:9292/tcp
+    networks:
+      - frontend
+
+  post:
+    build: ./post-py
+    image: post:1.0
+    env_file:
+      - post-py/.env
+      - post-py/.env.local
+    networks:
+      - backend
+      - frontend
+
+  comment:
+    build: ./comment
+    image: comment:1.0
+    env_file:
+      - comment/.env
+      - comment/.env.local
+    networks:
+      - backend
+      - frontend
+
+volumes:
+  mongo_db:
+
+networks:
+  backend:
+  frontend:
