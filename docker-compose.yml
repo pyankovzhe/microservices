@@ -10,6 +10,8 @@ services:
   ui:
     build: ./ui
     image: ui:1.0
+    volumes:
+      - ./ui:/app
     env_file:
       - ui/.env
       - ui/.env.local
@@ -21,6 +23,8 @@ services:
   post:
     build: ./post-py
     image: post:1.0
+    volumes:
+      - ./post-py:/app
     env_file:
       - post-py/.env
       - post-py/.env.local
@@ -31,6 +35,8 @@ services:
   comment:
     build: ./comment
     image: comment:1.0
+    volumes:
+      - ./comment:/app
     env_file:
       - comment/.env
       - comment/.env.local

@@ -21,7 +21,6 @@ before do
   session[:flashes] = [] if session[:flashes].class != Array
 end
 
-
 get '/' do
   @title = 'All posts'
   begin
