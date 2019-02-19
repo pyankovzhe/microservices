@@ -1,4 +1,5 @@
-version: '3.3'
+version: '3.4'
+
 services:
   mongo_db:
     image: mongo:3.2
@@ -8,8 +9,10 @@ services:
       - backend
 
   ui:
-    build: ./ui
-    image: ui:1.0
+    build:
+      context: ./ui
+      target: development
+    command: bundle exec puma
     volumes:
       - ./ui:/app
     env_file:
@@ -20,6 +23,20 @@ services:
     networks:
       - frontend
 
+  comment:
+    build:
+      context: ./comment
+      target: development
+    command: bundle exec puma
+    volumes:
+      - ./comment:/app
+    env_file:
+      - comment/.env
+      - comment/.env.local
+    networks:
+      - backend
+      - frontend
+
   post:
     build: ./post-py
     image: post:1.0
@@ -28,18 +45,6 @@ services:
     env_file:
       - post-py/.env
       - post-py/.env.local
-    networks:
-      - backend
-      - frontend
-
-  comment:
-    build: ./comment
-    image: comment:1.0
-    volumes:
-      - ./comment:/app
-    env_file:
-      - comment/.env
-      - comment/.env.local
     networks:
       - backend
       - frontend

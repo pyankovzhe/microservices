@@ -1,24 +1,46 @@
+variables:
+  APP_ENV: 'test'
+
+.ui: &ui
+  image: ruby:2.3
+  before_script:
+    - cd ui && bundle install --path vendor --retry 3 --jobs 3
+  cache:
+    key: 'reddit-ui-4'
+    paths:
+      - ui/vendor
+
 stages:
-  - build
+  - lint
   - test
+  - build
   - deploy
 
-build_job:
+ui:rubocop:
+  <<: *ui
+  stage: lint
+  script:
+    - bundle exec rubocop
+  allow_failure: true
+
+ui:test:
+  <<: *ui
+  stage: test
+  script:
+    - bundle exec ruby ui_test.rb
+
+ui:build:
+  <<: *ui
   stage: build
   script:
     - echo 'Building'
+  only:
+    - tags
 
-test_unit_job:
-  stage: test
-  script:
-    - echo 'Testing 1'
-
-test_integration_job:
-  stage: test
-  script:
-    - echo 'Testing 2'
-
-deploy_job:
+ui:deploy:
+  <<: *ui
   stage: deploy
   script:
     - echo 'Deploy'
+  only:
+    - tags

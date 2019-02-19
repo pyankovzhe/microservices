@@ -1,12 +1,8 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
-require 'json/ext' # for .to_json
-require 'uri'
-require 'mongo'
 require_relative 'helpers'
 
 class CommentApp < Sinatra::Base
-
   set :root, File.dirname(__FILE__)
 
   helpers Sinatra::CommentApp::Helpers
