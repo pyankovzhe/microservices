@@ -1,4 +1,2 @@
-.env.local
-comment/.env.local
-post-py/.env.local
-ui/.env.local
+docker/.env.local
+post-py/__pycache__/

@@ -13,10 +13,13 @@ WORKDIR /app
 FROM builder AS development
 COPY Gemfile* /app/
 RUN bundle install
+
 COPY . /app
 
 # 3. Релиз
 FROM development AS release
 RUN apk del .build-dependencies
+
+ENV APP_ENV=production
 
 CMD ["puma"]

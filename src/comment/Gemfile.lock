@@ -10,6 +10,11 @@ GEM
     bson (4.2.2)
     bson_ext (1.5.1)
     concurrent-ruby (1.1.4)
+    et-orbi (1.1.7)
+      tzinfo
+    fugit (1.1.8)
+      et-orbi (~> 1.1, >= 1.1.7)
+      raabro (~> 1.1)
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     minitest (5.11.3)
@@ -17,10 +22,16 @@ GEM
       bson (>= 4.2.1, < 5.0.0)
     multi_json (1.13.1)
     mustermann (1.0.3)
+    prometheus-client (0.9.0)
+      quantile (~> 0.2.1)
     puma (3.10.0)
-    rack (2.0.5)
+    quantile (0.2.1)
+    raabro (1.1.6)
+    rack (2.0.6)
     rack-protection (2.0.4)
       rack
+    rufus-scheduler (3.5.2)
+      fugit (~> 1.1, >= 1.1.5)
     sinatra (2.0.4)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -38,6 +49,8 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.9)
+      tzinfo (>= 1.0.0)
 
 PLATFORMS
   ruby
@@ -45,9 +58,13 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   mongo
+  prometheus-client
   puma
+  rack (>= 2.0.6)
+  rufus-scheduler
   sinatra (~> 2.0.2)
   sinatra-contrib (~> 2.0.2)
+  tzinfo-data
 
 BUNDLED WITH
    1.16.6

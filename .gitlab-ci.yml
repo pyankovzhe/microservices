@@ -4,9 +4,9 @@ variables:
 .ui: &ui
   image: ruby:2.3
   before_script:
-    - cd ui && bundle install --path vendor --retry 3 --jobs 3
+    - cd src/ui && bundle install --path vendor --retry 3 --jobs 3
   cache:
-    key: 'reddit-ui-4'
+    key: $CI_COMMIT_REF_SLUG
     paths:
       - ui/vendor
 

@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  mongo_db:
+    image: mongo:3.2
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - backend
+
+  ui:
+    image: pyankov/ui:1.0.1
+    env_file:
+      - .env
+      - .env.local
+    ports:
+      - 9292:9292/tcp
+    networks:
+      - frontend
+
+  comment:
+    image: pyankov/comment:1.0.1
+    env_file:
+      - .env
+      - .env.local
+    networks:
+      - backend
+      - frontend
+
+  post:
+    image: pyankov/post:1.0.1
+    env_file:
+      - .env
+      - .env.local
+    networks:
+      - backend
+      - frontend
+
+volumes:
+  mongo_db:
+
+networks:
+  backend:
+  frontend:

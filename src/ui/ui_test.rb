@@ -1,14 +1,15 @@
 ENV["APP_ENV"] = "test"
 
+require "rubygems"
+require "bundler/setup"
+Bundler.require(:default)
 require "./ui_app"
-require "test/unit"
-require "rack/test"
 
 class UiAppTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    UiApp
+    Sinatra::Application
   end
 
   def test_get_request

@@ -16,8 +16,8 @@ services:
     volumes:
       - ./ui:/app
     env_file:
-      - ui/.env
-      - ui/.env.local
+      - .env
+      - .env.local
     ports:
       - 9292:9292/tcp
     networks:
@@ -31,20 +31,19 @@ services:
     volumes:
       - ./comment:/app
     env_file:
-      - comment/.env
-      - comment/.env.local
+      - .env
+      - .env.local
     networks:
       - backend
       - frontend
 
   post:
     build: ./post-py
-    image: post:1.0
     volumes:
       - ./post-py:/app
     env_file:
-      - post-py/.env
-      - post-py/.env.local
+      - .env
+      - .env.local
     networks:
       - backend
       - frontend

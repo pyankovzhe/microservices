@@ -4,10 +4,15 @@ gem "sinatra", "~> 2.0.2"
 gem "sinatra-contrib", "~> 2.0.2"
 
 gem "bson_ext"
+gem "faraday"
 gem "haml"
+gem "prometheus-client"
 gem "puma"
-gem "rest-client"
+gem "rack", ">= 2.0.6"
+gem "rufus-scheduler"
+gem "tzinfo-data"
+gem "zipkin-tracer"
 
 gem "rack-test"
-gem 'test-unit'
 gem "rubocop", "~> 0.65.0", :require => false
+gem "test-unit"
