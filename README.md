@@ -1,6 +1,6 @@
 # Microservices
 
-Original reddit application — https://github.com/Artemmkin/reddit
+Original reddit application — https://github.com/express42/reddit
 
 ### GCP
 With docker-machine and GCP
@@ -67,3 +67,6 @@ Use .env.local to override environment variables
 ```sh
 docker-compose up -d
 ```
+
+TODO:
+Update README.md
