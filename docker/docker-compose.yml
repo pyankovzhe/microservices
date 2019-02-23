@@ -1,15 +1,8 @@
 version: '3.4'
 
 services:
-  mongo_db:
-    image: mongo:3.2
-    volumes:
-      - mongo_db:/data/db
-    networks:
-      - backend
-
   ui:
-    image: pyankov/ui:1.0.1
+    image: ${USERNAME}/ui
     env_file:
       - .env
       - .env.local
@@ -19,7 +12,7 @@ services:
       - frontend
 
   comment:
-    image: pyankov/comment:1.0.1
+    image: ${USERNAME}/comment
     env_file:
       - .env
       - .env.local
@@ -28,7 +21,7 @@ services:
       - frontend
 
   post:
-    image: pyankov/post:1.0.1
+    image: ${USERNAME}/post
     env_file:
       - .env
       - .env.local
@@ -36,8 +29,46 @@ services:
       - backend
       - frontend
 
+
+  mongo_db:
+    image: mongo:3.2
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - backend
+
+  prometheus:
+    image: ${USERNAME}/prometheus
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+    networks:
+      - backend
+      - frontend
+
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      - backend
+      - frontend
+
 volumes:
   mongo_db:
+  prometheus_data:
 
 networks:
   backend:
